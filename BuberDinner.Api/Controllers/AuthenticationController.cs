@@ -22,11 +22,8 @@ namespace BuberDinner.Api.Controller
                                             request.FirstName,
                                             request.Email,
                                             request.Password);
-            var response = new AuthenticationRespone(auResult.FirstName,
-                                                    auResult.LastName,
-                                                    auResult.Email,
-                                                    auResult.Token,
-                                                    auResult.Id);
+            var response = new AuthenticationRespone(auResult.user,
+                                                    auResult.Token);
             return Ok(response);
         }
 
@@ -36,11 +33,8 @@ namespace BuberDinner.Api.Controller
             var auResult = _authenticationService.Login(request.Email,
                                                         request.Password);
 
-            var response = new AuthenticationRespone(auResult.FirstName,
-                                                    auResult.LastName,
-                                                    auResult.Email,
-                                                    auResult.Token,
-                                                    auResult.Id);
+            var response = new AuthenticationRespone(auResult.user,
+                                                   auResult.Token);
             return Ok(response);
         }
     }

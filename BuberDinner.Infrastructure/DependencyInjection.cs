@@ -1,6 +1,8 @@
 ﻿using BuberDinner.Application.Common.Interface.Services;
 using BuberDinner.Application.Common.Interfaces.Authentication;
+using BuberDinner.Application.Services.Persistence;
 using BuberDinner.Infrastructure.Authentication;
+using BuberDinner.Infrastructure.Persistence;
 using BuberDinner.Infrastructure.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +23,8 @@ namespace BuberDinner.Infrastructure
 
             // Microsoft.Extensions.Options.ConfigurationExtension
             services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.SectionName));
+
+            services.AddScoped<IUserRepository, UserRepository>();
             return services;
         }
     }
