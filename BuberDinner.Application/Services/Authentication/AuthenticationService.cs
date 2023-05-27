@@ -7,6 +7,7 @@ using BuberDinner.Application.Common.Errors;
 using BuberDinner.Application.Common.Interfaces.Authentication;
 using BuberDinner.Application.Services.Persistence;
 using BuberDinner.Domain.Entities;
+using FluentResults;
 
 namespace BuberDinner.Application.Services.Authentication
 {
@@ -21,12 +22,12 @@ namespace BuberDinner.Application.Services.Authentication
             _jwtTokenGenerator = jwtTokenGenerator;
             _userRepository = userRepository;
         }
-        public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+        public Result<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
         {
             // 1. Validate the user doesn't exists
             if (_userRepository.GetUserByEmail(email) is not null)
             {
-                throw new DuplicateEmailException();
+                return Result.Fail<AuthenticationResult>(new[] { new DuplicateEmailError() });
             }
 
             // 2. Create user (generate unique ID) && Persist to DB
