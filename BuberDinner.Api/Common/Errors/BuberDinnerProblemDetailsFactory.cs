@@ -1,4 +1,4 @@
-﻿namespace BuberDinner.Api.Errors;
+﻿namespace BuberDinner.Api.Common.Errors;
 
 // Link Git: https://github.com/dotnet/aspnetcore/blob/main/src/Mvc/Mvc.Core/src/Infrastructure/DefaultProblemDetailsFactory.cs
 
@@ -8,10 +8,10 @@
 #nullable enable
 
 using System.Diagnostics;
-using global::Microsoft.AspNetCore.Mvc.Infrastructure;
-using global::Microsoft.AspNetCore.Mvc.ModelBinding;
-using global::Microsoft.AspNetCore.Mvc;
-using global::Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
