@@ -1,14 +1,15 @@
-﻿using BuberDinner.Application.Common.Errors;
+﻿using BuberDinner.Api.Controllers;
 using BuberDinner.Application.Services.Authentication;
 using BuberDinner.Contacts.Authentication;
+using ErrorOr;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
+using BuberDinner.Domain.Common.Errors;
 
 namespace BuberDinner.Api.Controller
 {
-    [ApiController]
     [Route("auth")]
-    public class AuthenticationController : ControllerBase
+    public class AuthenticationController : ApiController
     {
         private readonly IAuthenticationService _authenticationService;
 
@@ -20,24 +21,15 @@ namespace BuberDinner.Api.Controller
         [HttpPost("Register")]
         public IActionResult Register(RegisterRequest request)
         {
-            Result<AuthenticationResult> registerResult = _authenticationService.Register(
+            ErrorOr<AuthenticationResult> registerResult = _authenticationService.Register(
                 request.LastName,
                 request.FirstName,
                 request.Email,
                 request.Password);
 
-            if (registerResult.IsSuccess)
-            {
-                return Ok(MapAuthResult(registerResult.Value));
-            }
-
-            var firstError = registerResult.Errors[0];
-            if (firstError is DuplicateEmailError)
-            {
-                return Problem(statusCode: StatusCodes.Status409Conflict, title: "Email already exists FluentResults.");
-            }
-
-            return Problem();
+            return registerResult.Match(
+                registerResult => Ok(MapAuthResult(registerResult)),
+                errors => Problem(errors));
         }
 
         private static AuthenticationRespone MapAuthResult(AuthenticationResult auResult)
@@ -51,10 +43,16 @@ namespace BuberDinner.Api.Controller
         {
             var auResult = _authenticationService.Login(request.Email,
                                                         request.Password);
+            if (auResult.IsError && auResult.FirstError == Errors.Authentication.InvalidCredentials)
+            {
+                return Problem(statusCode: StatusCodes.Status401Unauthorized, title: auResult.FirstError.Description);
+            }
 
-            var response = new AuthenticationRespone(auResult.user,
-                                                   auResult.Token);
-            return Ok(response);
+
+            return auResult.Match(
+                auResult => Ok(MapAuthResult(auResult)),
+                errors => Problem(errors));
+
         }
     }
 }

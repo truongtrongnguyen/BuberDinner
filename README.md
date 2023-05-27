@@ -13,4 +13,5 @@
   - Via error endpoint --> Endpoint
   - Custom Problem Details Factory --> folder Errors & ErrorsController
   - EF5: Handler Exception via Exception
-    -EF5.1: FluentResult
+    - EF5.1: FluentResult
+    - EF5.2: ErrorOr

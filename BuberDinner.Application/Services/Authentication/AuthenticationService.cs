@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BuberDinner.Application.Common.Errors;
 using BuberDinner.Application.Common.Interfaces.Authentication;
 using BuberDinner.Application.Services.Persistence;
+using BuberDinner.Domain.Common.Errors;
 using BuberDinner.Domain.Entities;
+using ErrorOr;
 using FluentResults;
 
 namespace BuberDinner.Application.Services.Authentication
@@ -22,12 +23,12 @@ namespace BuberDinner.Application.Services.Authentication
             _jwtTokenGenerator = jwtTokenGenerator;
             _userRepository = userRepository;
         }
-        public Result<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
+        public ErrorOr<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
         {
             // 1. Validate the user doesn't exists
             if (_userRepository.GetUserByEmail(email) is not null)
             {
-                return Result.Fail<AuthenticationResult>(new[] { new DuplicateEmailError() });
+                return Errors.User.DuplicateEmail;
             }
 
             // 2. Create user (generate unique ID) && Persist to DB
@@ -47,18 +48,18 @@ namespace BuberDinner.Application.Services.Authentication
                                             token);
         }
 
-        public AuthenticationResult Login(string email, string password)
+        public ErrorOr<AuthenticationResult> Login(string email, string password)
         {
             // 1. Validate the user exists
             if (_userRepository.GetUserByEmail(email) is not User user)
             {
-                throw new Exception("User with given email does not exists.");
+                return Errors.Authentication.InvalidCredentials;
             }
 
             // 2. Validate the password is correct
             if (user.Password != password)
             {
-                throw new Exception("Invalid password.");
+                return new[] { Errors.Authentication.InvalidCredentials };
             }
 
             // 3. Create JWT Token
