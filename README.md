@@ -16,3 +16,6 @@
   - EF5.1: FluentResult
   - EF5.2: ErrorOr
 - EF6: CQRS & MediatR
+- EF7: Mapster
+  - package: Mapster
+  - package: Mapster.DependencyInjection

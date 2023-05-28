@@ -7,6 +7,7 @@ using BuberDinner.Application.Services.Authentication.Common;
 using MediatR;
 using BuberDinner.Application.Services.Authentication.Commands.Register;
 using BuberDinner.Application.Authentication.Queries.Login;
+using MapsterMapper;
 
 namespace BuberDinner.Api.Controller
 {
@@ -15,34 +16,30 @@ namespace BuberDinner.Api.Controller
     {
         // IMediatR inheritance ISender
         private readonly ISender _mediator;
+        private readonly IMapper _mapper;
 
-        public AuthenticationController(IMediator mediator)
+        public AuthenticationController(IMediator mediator, IMapper mapper)
         {
             _mediator = mediator;
+            _mapper = mapper;
         }
 
         [HttpPost("Register")]
         public async Task<IActionResult> Register(RegisterRequest request)
         {
-            var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+            var command = _mapper.Map<RegisterCommand>(request);
 
             ErrorOr<AuthenticationResult> registerResult = await _mediator.Send(command);
 
             return registerResult.Match(
-                registerResult => Ok(MapAuthResult(registerResult)),
+                registerResult => Ok(_mapper.Map<AuthenticationRespone>(registerResult)),
                 errors => Problem(errors));
-        }
-
-        private static AuthenticationRespone MapAuthResult(AuthenticationResult auResult)
-        {
-            return new AuthenticationRespone(auResult.user,
-                                             auResult.Token);
         }
 
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginRequest request)
         {
-            var query = new LoginQuery(request.Email, request.Password);
+            var query = _mapper.Map<LoginQuery>(request);
 
             var auResult = await _mediator.Send(query);
 
@@ -52,7 +49,7 @@ namespace BuberDinner.Api.Controller
             }
 
             return auResult.Match(
-                auResult => Ok(MapAuthResult(auResult)),
+                auResult => Ok(_mapper.Map<AuthenticationRespone>(auResult)),
                 errors => Problem(errors));
 
         }

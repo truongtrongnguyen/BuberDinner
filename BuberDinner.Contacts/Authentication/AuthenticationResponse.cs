@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace BuberDinner.Contacts.Authentication
 {
-    public record class AuthenticationRespone(User user,
+    public record class AuthenticationRespone(Guid Id,
+                                            string FirstName,
+                                            string LastName,
+                                            string Email,
                                             string Token);
 }
