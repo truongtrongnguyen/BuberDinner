@@ -15,3 +15,4 @@
   - EF5: Handler Exception via Exception
     - EF5.1: FluentResult
     - EF5.2: ErrorOr
+  - EF6: CQRS & MediatR
