@@ -49,7 +49,7 @@ namespace BuberDinner.Api.Controller
             }
 
             return auResult.Match(
-                auResult => Ok(_mapper.Map<AuthenticationRespone>(auResult)),
+                auResult => Ok(_mapper.Map<AuthenticationResult>(auResult)),
                 errors => Problem(errors));
 
         }

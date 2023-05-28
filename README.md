@@ -19,3 +19,10 @@
 - EF7: Mapster
   - package: Mapster
   - package: Mapster.DependencyInjection
+- EF8: FluentValidation
+  - package: FluentValidation
+  - package: FLuentValidation.AspNetCore
+  - ErrorRequest: Request -> RegisterCommandValidator -> ValidationBehavior -> Problem(Controller) -> BuberDinnerProblemDetailsFactory
+  - ErrorDuplicateEmail: Request -> RegisterCommandValidator -> ValidationBehavior -> RegisterCommandHandler -> Problem(Controller) -> BuberDinnerProblemDetailsFactory
+  - Exception: --> ErrorController
+  - Success: Request -> RegisterCommandValidator -> ValidationBehavior -> RegisterCommandHandler -> Successful
