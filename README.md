@@ -12,7 +12,7 @@
   - Problem Details --> in Controller
   - Via error endpoint --> Endpoint
   - Custom Problem Details Factory --> folder Errors & ErrorsController
-  - EF5: Handler Exception via Exception
-    - EF5.1: FluentResult
-    - EF5.2: ErrorOr
-  - EF6: CQRS & MediatR
+- EF5: Handler Exception via Exception
+  - EF5.1: FluentResult
+  - EF5.2: ErrorOr
+- EF6: CQRS & MediatR

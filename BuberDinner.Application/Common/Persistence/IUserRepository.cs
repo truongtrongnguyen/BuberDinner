@@ -1,6 +1,6 @@
 using BuberDinner.Domain.Entities;
 
-namespace BuberDinner.Application.Services.Persistence;
+namespace BuberDinner.Application.Common.Persistence;
 
 public interface IUserRepository
 {
