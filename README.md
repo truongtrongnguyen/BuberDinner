@@ -26,3 +26,4 @@
   - ErrorDuplicateEmail: Request -> RegisterCommandValidator -> ValidationBehavior -> RegisterCommandHandler -> Problem(Controller) -> BuberDinnerProblemDetailsFactory
   - Exception: --> ErrorController
   - Success: Request -> RegisterCommandValidator -> ValidationBehavior -> RegisterCommandHandler -> Successful
+- EF9: Jwt Bearer Authorization (AllowAnonymous)

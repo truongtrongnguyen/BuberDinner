@@ -8,10 +8,12 @@ using MediatR;
 using BuberDinner.Application.Services.Authentication.Commands.Register;
 using BuberDinner.Application.Authentication.Queries.Login;
 using MapsterMapper;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BuberDinner.Api.Controller
 {
     [Route("auth")]
+    [AllowAnonymous]
     public class AuthenticationController : ApiController
     {
         // IMediatR inheritance ISender
