@@ -27,3 +27,5 @@
   - Exception: --> ErrorController
   - Success: Request -> RegisterCommandValidator -> ValidationBehavior -> RegisterCommandHandler -> Successful
 - EF9: Jwt Bearer Authorization (AllowAnonymous)
+- EF10: Explaining the Operational Structure Dinner (Process)
+- EF11: How to determine the structure of the dinner entity
