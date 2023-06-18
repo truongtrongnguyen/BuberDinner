@@ -3,8 +3,8 @@ using BuberDinner.Application.Services.Authentication.Common;
 using ErrorOr;
 using MediatR;
 using BuberDinner.Domain.Common.Errors;
-using BuberDinner.Domain.Entities;
 using BuberDinner.Application.Common.Persistence;
+using BuberDinner.Domain.UserAggregate;
 
 namespace BuberDinner.Application.Authentication.Queries.Login
 {

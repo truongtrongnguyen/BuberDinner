@@ -1,6 +1,6 @@
 using BuberDinner.Application.Common.Interface.Services;
 using BuberDinner.Application.Common.Interfaces.Authentication;
-using BuberDinner.Domain.Entities;
+using BuberDinner.Domain.UserAggregate;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
